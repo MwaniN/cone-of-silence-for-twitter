@@ -24,4 +24,17 @@ return
 
 }
 
+function removeAllPostText(){
+
+  let tweets = document.querySelectorAll("article");
+
+  for (let tweet of tweets) {
+    removePostText(tweet);
+  }
+}
+
+removeAllPostText();
+
+// const observer = new MutationObserver(callbackHere)
+
 // mvp - remove all post text on main page and individual post link
