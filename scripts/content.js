@@ -42,6 +42,4 @@ removeAllPostText();
 
 // const observer = new MutationObserver(callbackHere)
 
-// mvp - remove all post text on main page and individual post link
-
-// tweets[1].querySelectorAll("[data-testid=videoComponent]") actually worked in the Console
+// mvp - remove all post text on main page and individual post link continuously
