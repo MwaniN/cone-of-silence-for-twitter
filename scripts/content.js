@@ -1,3 +1,4 @@
+// Only shows tweets or comments, with images or video and removes text from the remaining tweets.
 
 function removePostText(element) {
 
@@ -43,3 +44,14 @@ removeAllPostText();
 // const observer = new MutationObserver(callbackHere)
 
 // mvp - remove all post text on main page and individual post link continuously
+
+// let nodes = document.querySelectorAll("[data-testid=primaryColumn]");
+// nodes[0];
+
+// mutationObserver = new MutationObserver(function() {
+//   console.log('should be changing now');
+//   removeAllPostText(); })
+
+//   mutationObserver.observe(nodes[0], {childList: true})
+
+  // consider using jquery
