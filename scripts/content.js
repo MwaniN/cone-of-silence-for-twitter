@@ -28,7 +28,13 @@ function removeAllPostText(){
   let tweets = document.querySelectorAll("article");
 
   for (let tweet of tweets) {
-    removePostText(tweet);
+    const gifsAndVids = tweet.querySelectorAll("[data-testid=videoComponent]")
+    const tweetImg = tweet.querySelectorAll("[data-testid=tweetPhoto]")
+    if (gifsAndVids.length === 0 && tweetImg.length === 0) {
+      tweet.remove();
+    } else {
+      removePostText(tweet);
+    }
   }
 }
 
