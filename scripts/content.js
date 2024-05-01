@@ -42,21 +42,11 @@ function removeAllPostText(){
   }
 }
 
-// document.addEventListener('DOMContentLoaded', function() {
-//   console.log("hey it's working buddy")
-// }, false);
-
 // document.addEventListener("DOMContentLoaded", (event) => {
 //   console.log("DOM fully loaded and parsed");
 //   removeAllPostText();
 // });
 
-// wrap everything below in an event listener that only triggers when the dom is built
-
-// if (document.readyState !== 'loading') {
-//   console.log('document is already ready, just execute code here');
-//   myInitCode();
-// }
 
 const targetNode = document.querySelector(".css-175oi2r.r-1jgb5lz.r-13qz1uu.r-1ye8kvj");
 // console.log(targetNode, " this is targetNode")
