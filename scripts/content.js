@@ -39,7 +39,10 @@ function removeAllPostText(){
   }
 }
 
-removeAllPostText();
+document.addEventListener("DOMContentLoaded", (event) => {
+  console.log("DOM fully loaded and parsed");
+  removeAllPostText();
+});
 
 // const observer = new MutationObserver(callbackHere)
 
