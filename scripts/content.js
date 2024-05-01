@@ -1,4 +1,5 @@
 // Only shows tweets or comments, with images or video and removes text from the remaining tweets.
+// works on the timeline now
 
 function removePostText(element) {
 
@@ -44,17 +45,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
   removeAllPostText();
 });
 
-// const observer = new MutationObserver(callbackHere)
-
-// mvp - remove all post text on main page and individual post link continuously
-
-// let nodes = document.querySelectorAll("[data-testid=primaryColumn]");
-// nodes[0];
-
-// mutationObserver = new MutationObserver(function() {
-//   console.log('should be changing now');
-//   removeAllPostText(); })
-
-//   mutationObserver.observe(nodes[0], {childList: true})
-
-  // consider using jquery
+const targetNode = document.querySelector(".css-175oi2r.r-1jgb5lz.r-13qz1uu.r-1ye8kvj");
+// Options for the observer (which mutations to observe)
+const config = { attributes: true, childList: true, subtree: true };
+// Callback function to execute when mutations are observed
+const callback = function (mutationsList, observer) {
+  // Use traditional 'for loops' for IE 11
+  for (const mutation of mutationsList) {
+    if (mutation.type === "childList") {
+      // console.log("A child node has been added or removed.");
+      removeAllPostText();
+    } else if (mutation.type === "attributes") {
+      // console.log("The " + mutation.attributeName + " attribute was modified.");
+      removeAllPostText();
+    }
+  }
+};
+// Create an observer instance linked to the callback function
+const observer = new MutationObserver(callback);
+// Start observing the target node for configured mutations
+observer.observe(targetNode, config);
