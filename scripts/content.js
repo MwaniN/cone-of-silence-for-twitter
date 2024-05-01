@@ -42,12 +42,26 @@ function removeAllPostText(){
   }
 }
 
-document.addEventListener("DOMContentLoaded", (event) => {
-  console.log("DOM fully loaded and parsed");
-  removeAllPostText();
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//   console.log("hey it's working buddy")
+// }, false);
+
+// document.addEventListener("DOMContentLoaded", (event) => {
+//   console.log("DOM fully loaded and parsed");
+//   removeAllPostText();
+// });
+
+// wrap everything below in an event listener that only triggers when the dom is built
+
+// if (document.readyState !== 'loading') {
+//   console.log('document is already ready, just execute code here');
+//   myInitCode();
+// }
 
 const targetNode = document.querySelector(".css-175oi2r.r-1jgb5lz.r-13qz1uu.r-1ye8kvj");
+// console.log(targetNode, " this is targetNode")
+
+
 // Options for the observer (which mutations to observe)
 const config = { attributes: true, childList: true, subtree: true };
 // Callback function to execute when mutations are observed
@@ -55,10 +69,10 @@ const callback = function (mutationsList, observer) {
   // Use traditional 'for loops' for IE 11
   for (const mutation of mutationsList) {
     if (mutation.type === "childList") {
-      console.log("A child node has been added or removed.");
+      // console.log("A child node has been added or removed.");
       removeAllPostText();
     } else if (mutation.type === "attributes") {
-      console.log("The " + mutation.attributeName + " attribute was modified.");
+      // console.log("The " + mutation.attributeName + " attribute was modified.");
       removeAllPostText();
     }
   }
@@ -66,4 +80,6 @@ const callback = function (mutationsList, observer) {
 // Create an observer instance linked to the callback function
 const observer = new MutationObserver(callback);
 // Start observing the target node for configured mutations
+
+
 observer.observe(targetNode, config);
