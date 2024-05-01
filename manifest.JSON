@@ -3,12 +3,6 @@
   "name": "cone of silence for Twitter",
   "version": "1.0",
   "description": "Remove text from your Twitter browsing experience.",
-  "icons": {
-    "16": "",
-    "32": "",
-    "48": "",
-    "128": ""
-  },
   "content_scripts": [
     {
       "js": ["scripts/content.js"],
