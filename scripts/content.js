@@ -26,8 +26,6 @@ return
 
 function removeAllPostText(){
 
-  console.log("removeAllPostText started")
-
 // retrieve all of the individual tweets and store it in a variable called tweets
   let tweets = document.querySelectorAll("article");
 
@@ -47,16 +45,14 @@ function removeAllPostText(){
 //   removeAllPostText();
 // });
 
+function runInnerObserver() {
 
 const targetNode = document.querySelector(".css-175oi2r.r-1jgb5lz.r-13qz1uu.r-1ye8kvj");
-// console.log(targetNode, " this is targetNode")
 
-
-// Options for the observer (which mutations to observe)
+// Options for the inner observer (which mutations to observe)
 const config = { attributes: true, childList: true, subtree: true };
 // Callback function to execute when mutations are observed
 const callback = function (mutationsList, observer) {
-  // Use traditional 'for loops' for IE 11
   for (const mutation of mutationsList) {
     if (mutation.type === "childList") {
       // console.log("A child node has been added or removed.");
@@ -68,8 +64,30 @@ const callback = function (mutationsList, observer) {
   }
 };
 // Create an observer instance linked to the callback function
-const observer = new MutationObserver(callback);
+const innerObserver = new MutationObserver(callback);
+
 // Start observing the target node for configured mutations
+innerObserver.observe(targetNode, config);
+}
 
 
-observer.observe(targetNode, config);
+
+
+
+
+
+
+
+
+const elementToObserve = document.querySelector("#react-root");
+console.log("this is the element to observe - ", elementToObserve);
+const lookingFor = '.css-175oi2r.r-1jgb5lz.r-13qz1uu.r-1ye8kvj';
+const outerObserver = new MutationObserver(() => {
+    if (document.querySelector(lookingFor)) {
+        console.log(`${lookingFor} is ready`);
+        runInnerObserver();
+        // outerObserver.disconnect();
+    }
+});
+
+outerObserver.observe(elementToObserve, {subtree: true, childList: true});
