@@ -73,11 +73,8 @@ innerObserver.observe(targetNode, config);
 
 
 
-
-
-
-
-
+window.addEventListener('load', function () {
+  console.log("It's loaded!")
 
 const elementToObserve = document.querySelector("#react-root");
 console.log("this is the element to observe - ", elementToObserve);
@@ -86,8 +83,14 @@ const outerObserver = new MutationObserver(() => {
     if (document.querySelector(lookingFor)) {
         console.log(`${lookingFor} is ready`);
         runInnerObserver();
-        // outerObserver.disconnect();
+        outerObserver.disconnect();
     }
 });
 
 outerObserver.observe(elementToObserve, {subtree: true, childList: true});
+})
+
+
+
+
+
