@@ -27,11 +27,16 @@ return
 function removeAllPostText(){
 
 // retrieve all of the individual tweets and store it in a variable called tweets
-  let tweets = document.querySelectorAll("article");
+  // tried using "[data-testid=cellInnerDiv]" - performance seemed improved yet there was an error when scrolling - can explore more later
+  // can also use "[data-testid=tweet]"
+
+  let tweets = document.body.querySelectorAll("article");
 
   for (let tweet of tweets) {
+    console.log(tweet, " is tweet")
     const gifsAndVids = tweet.querySelectorAll("[data-testid=videoComponent]")
     const tweetImg = tweet.querySelectorAll("[data-testid=tweetPhoto]")
+    console.log(tweetImg, "this is tweetImg")
     if (gifsAndVids.length === 0 && tweetImg.length === 0) {
       tweet.remove();
     } else {
@@ -50,7 +55,7 @@ function runInnerObserver() {
 const targetNode = document.querySelector(".css-175oi2r.r-1jgb5lz.r-13qz1uu.r-1ye8kvj");
 
 // Options for the inner observer (which mutations to observe)
-const config = { attributes: true, childList: true, subtree: true };
+const config = { attributes: true, attributeFilter:['[data-testid=tweet]'], childList: true, subtree: true };
 // Callback function to execute when mutations are observed
 const callback = function (mutationsList, observer) {
   for (const mutation of mutationsList) {
@@ -59,7 +64,7 @@ const callback = function (mutationsList, observer) {
       removeAllPostText();
     } else if (mutation.type === "attributes") {
       // console.log("The " + mutation.attributeName + " attribute was modified.");
-      removeAllPostText();
+      //removeAllPostText();
     }
   }
 };
@@ -87,8 +92,10 @@ const outerObserver = new MutationObserver(() => {
     }
 });
 
-outerObserver.observe(elementToObserve, {subtree: true, childList: true});
+outerObserver.observe(elementToObserve, {attributes: true, attributeFilter:['[data-testid=cellInnerDiv]'], subtree: true, childList: true});
 })
+
+
 
 
 
