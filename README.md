@@ -12,4 +12,4 @@ This is a work in progress
 
 ## License
 
-None. If there's interest in contributing once version 1.0 is out I can open it up.
+None. If there is interest in contributing once version 1.0 is out I can open it up.
