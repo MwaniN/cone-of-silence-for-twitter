@@ -1,6 +1,7 @@
-// Only shows tweets or comments, with images or video and removes text from the remaining tweets.
-// works on the timeline now
+// Only show tweets or comments, with images or video and removes text from the remaining tweets.
 
+
+// remove texts from tweets
 function removePostText(element) {
 
 let textParent = element.querySelectorAll(".css-1rynq56.r-8akbws.r-krxsd3.r-dnmrzs.r-1udh08x.r-bcqeeo.r-qvutc0.r-37j5jr.r-a023e6.r-rjixqe.r-16dba41.r-bnwqim");
@@ -27,17 +28,14 @@ return
 function removeAllPostText(){
 
 // retrieve all of the individual tweets and store it in a variable called tweets
-  // tried using "[data-testid=cellInnerDiv]" - performance seemed improved yet there was an error when scrolling - can explore more later
-  // can also use "[data-testid=tweet]"
 
-  let tweets = document.body.querySelectorAll("article");
+  let tweets = document.body.querySelector("section").childNodes[1].childNodes[0].children;
 
   for (let tweet of tweets) {
-    console.log(tweet, " is tweet")
+    // ----refactor this to drill down into each tweet directly rather than user querySelectorAll
     const gifsAndVids = tweet.querySelectorAll("[data-testid=videoComponent]")
     const tweetImg = tweet.querySelectorAll("[data-testid=tweetPhoto]")
-    console.log(tweetImg, "this is tweetImg")
-    if (gifsAndVids.length === 0 && tweetImg.length === 0) {
+    if ((gifsAndVids.length === 0) && (tweetImg.length === 0)) {
       tweet.remove();
     } else {
       removePostText(tweet);
@@ -50,12 +48,15 @@ function removeAllPostText(){
 //   removeAllPostText();
 // });
 
-function runInnerObserver() {
 
-const targetNode = document.querySelector(".css-175oi2r.r-1jgb5lz.r-13qz1uu.r-1ye8kvj");
+// create a mutation observer to watch for changes to the tweet's parent elements
+function runTweetObserver() {
 
-// Options for the inner observer (which mutations to observe)
-const config = { attributes: true, attributeFilter:['[data-testid=tweet]'], childList: true, subtree: true };
+const targetNode = document.body.querySelector("section").childNodes[1].childNodes[0]
+
+// which mutations to observe
+const config = {attributes: true, childList: true, subtree:false};
+
 // Callback function to execute when mutations are observed
 const callback = function (mutationsList, observer) {
   for (const mutation of mutationsList) {
@@ -63,31 +64,32 @@ const callback = function (mutationsList, observer) {
       // console.log("A child node has been added or removed.");
       removeAllPostText();
     } else if (mutation.type === "attributes") {
-      // console.log("The " + mutation.attributeName + " attribute was modified.");
-      //removeAllPostText();
+      // console.log(`The ${mutation.attributeName} attribute was modified.`);
+      removeAllPostText();
     }
   }
 };
 // Create an observer instance linked to the callback function
-const innerObserver = new MutationObserver(callback);
+const tweetObserver = new MutationObserver(callback);
 
 // Start observing the target node for configured mutations
-innerObserver.observe(targetNode, config);
+tweetObserver.observe(targetNode, config);
 }
 
 
 
-
+// check that the required section has been loaded to the DOM before running the tweetObserver
 window.addEventListener('load', function () {
-  console.log("It's loaded!")
+  console.log("Window is loaded!")
 
 const elementToObserve = document.querySelector("#react-root");
-console.log("this is the element to observe - ", elementToObserve);
-const lookingFor = '.css-175oi2r.r-1jgb5lz.r-13qz1uu.r-1ye8kvj';
+const lookingFor = 'section';
 const outerObserver = new MutationObserver(() => {
     if (document.querySelector(lookingFor)) {
         console.log(`${lookingFor} is ready`);
-        runInnerObserver();
+        removeAllPostText()
+        runTweetObserver();
+        // disconnect to stop the observer from observing once the element is found
         outerObserver.disconnect();
     }
 });
