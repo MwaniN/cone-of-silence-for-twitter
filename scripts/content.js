@@ -31,7 +31,7 @@ function removeAllPostText(){
 
 // retrieve all of the individual tweets and store it in a variable called tweets
 
-  let tweets = document.querySelector('[id^="accessible-list-"]').parentNode.childNodes[1].childNodes[0].children;
+  let tweets = document.body.querySelector('[id^="accessible-list-"]').parentNode.childNodes[1].childNodes[0].children;
 
   console.log(tweets, " this is tweets")
 
@@ -40,6 +40,7 @@ function removeAllPostText(){
     const gifsAndVids = tweet.querySelectorAll("[data-testid=videoComponent]")
     const tweetImg = tweet.querySelectorAll("[data-testid=tweetPhoto]")
 
+    console.log(tweet, "this is tweet")
     console.log(gifsAndVids, tweetImg, " these are the both of them")
     if ((gifsAndVids.length === 0) && (tweetImg.length === 0)) {
       tweet.remove();
@@ -58,7 +59,8 @@ function removeAllPostText(){
 // watch for changes to the tweet's parent elements
 function runTweetObserver() {
 
-const targetNode = document.querySelector('[id^="accessible-list-"]').parentNode.childNodes[1].childNodes[0]
+const targetNode = document.body.querySelector('[id^="accessible-list-"]').parentNode.childNodes[1].childNodes[0]
+console.log(targetNode, " this is target node")
 
 // which mutations to observe
 const config = {childList: true};
@@ -87,11 +89,13 @@ tweetObserver.observe(targetNode, config);
 // OUTER OBSERVER
 
 // check that the required section has been loaded to the DOM before running the tweetObserver
+
 const elementToObserve = document.getElementById("react-root");
 const outerObserver = new MutationObserver(() => {
-    if (document.querySelector('[id^="accessible-list-"]')) {
-      if (document.querySelector('[id^="accessible-list-"]').parentNode.childNodes[1].childNodes[0]) {
+    if (window.parent.document.body.querySelector('[id^="accessible-list-"]')) {
+      if (window.parent.document.body.querySelector('[id^="accessible-list-"]').parentNode.childNodes[1].childNodes[0]) {
         console.log("we removing")
+        console.log(window.parent.document.body.querySelector('[id^="accessible-list-"]').parentNode.childNodes[1].childNodes[0], " this is what we're looking for to be loaded")
           removeAllPostText()
           runTweetObserver();
           // disconnect to stop the observer from observing once the element is found
@@ -100,7 +104,7 @@ const outerObserver = new MutationObserver(() => {
         }
 });
 
-outerObserver.observe(elementToObserve, {attributes: true, subtree: true, childList: true});
+outerObserver.observe(elementToObserve, {attributes: false, subtree: true, childList: true});
 
 
 
