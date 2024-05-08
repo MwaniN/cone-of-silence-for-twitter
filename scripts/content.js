@@ -27,7 +27,7 @@ return
 
 }
 
-function removeAllPostText(){
+function removeAllPostText(theTweets){
 
 // retrieve all of the individual tweets and store it in a variable called tweets
 
@@ -57,9 +57,10 @@ function removeAllPostText(){
 // INNER OBSERVER
 
 // watch for changes to the tweet's parent elements
-function runTweetObserver() {
+function runTweetObserver(theTarget) {
 
-const targetNode = document.body.querySelector('[id^="accessible-list-"]').parentNode.childNodes[1].childNodes[0]
+const targetNode = theTarget
+//document.body.querySelector('[id^="accessible-list-"]').parentNode.childNodes[1].childNodes[0]
 console.log(targetNode, " this is target node")
 
 // which mutations to observe
@@ -70,7 +71,7 @@ const callback = function (mutationsList, observer) {
   for (const mutation of mutationsList) {
     if (mutation.type === "childList") {
       // console.log("A child node has been added or removed.");
-      removeAllPostText();
+      removeAllPostText(document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0].children);
     }
     // } else if (mutation.type === "attributes") {
     //   // console.log(`The ${mutation.attributeName} attribute was modified.`);
@@ -92,12 +93,14 @@ tweetObserver.observe(targetNode, config);
 
 const elementToObserve = document.getElementById("react-root");
 const outerObserver = new MutationObserver(() => {
-    if (window.parent.document.body.querySelector("section")) {
-      if (window.parent.document.body.querySelector("section").childNodes[1].childNodes[0].children.length > 0) {
+    if (document.body.querySelector("[data-testid=primaryColumn]")) {
+      if (document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0].children.length > 0) {
         console.log("we removing")
-        console.log(window.parent.document.body.querySelector("section").childNodes[1].childNodes[0].children, " this is what we're looking for to be loaded")
-          removeAllPostText()
-          runTweetObserver();
+        console.log(document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0], " this is what we're looking for to be loaded")
+        let theTweets = document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0].children
+        let theTarget = document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+          removeAllPostText(theTweets)
+          runTweetObserver(theTarget);
           // disconnect to stop the observer from observing once the element is found
           outerObserver.disconnect();
       }
