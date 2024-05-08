@@ -92,10 +92,10 @@ tweetObserver.observe(targetNode, config);
 
 const elementToObserve = document.getElementById("react-root");
 const outerObserver = new MutationObserver(() => {
-    if (window.parent.document.body.querySelector('[id^="accessible-list-"]')) {
-      if (window.parent.document.body.querySelector('[id^="accessible-list-"]').parentNode.childNodes[1].childNodes[0]) {
+    if (window.parent.document.body.querySelector("section")) {
+      if (window.parent.document.body.querySelector("section").childNodes[1].childNodes[0].children.length > 0) {
         console.log("we removing")
-        console.log(window.parent.document.body.querySelector('[id^="accessible-list-"]').parentNode.childNodes[1].childNodes[0], " this is what we're looking for to be loaded")
+        console.log(window.parent.document.body.querySelector("section").childNodes[1].childNodes[0].children, " this is what we're looking for to be loaded")
           removeAllPostText()
           runTweetObserver();
           // disconnect to stop the observer from observing once the element is found
@@ -105,8 +105,6 @@ const outerObserver = new MutationObserver(() => {
 });
 
 outerObserver.observe(elementToObserve, {attributes: false, subtree: true, childList: true});
-
-
 
 
 
