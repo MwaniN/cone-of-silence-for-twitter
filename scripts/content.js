@@ -82,9 +82,6 @@ tweetObserver.observe(targetNode, config);
 // OUTER OBSERVER
 
 // check that the required section has been loaded to the DOM before running the tweetObserver
-// window.addEventListener('load', function () {
-//   console.log("Window is loaded!")
-
 const elementToObserve = document.getElementById("react-root");
 const outerObserver = new MutationObserver(() => {
     if (document.querySelector('[id^="accessible-list-"]')) {
@@ -99,7 +96,6 @@ const outerObserver = new MutationObserver(() => {
 });
 
 outerObserver.observe(elementToObserve, {attributes: true, subtree: true, childList: true});
-// })
 
 
 
