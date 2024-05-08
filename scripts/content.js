@@ -33,10 +33,14 @@ function removeAllPostText(){
 
   let tweets = document.querySelector('[id^="accessible-list-"]').parentNode.childNodes[1].childNodes[0].children;
 
+  console.log(tweets, " this is tweets")
+
   for (let tweet of tweets) {
     // ----refactor this to drill down into each tweet directly rather than user querySelectorAll
     const gifsAndVids = tweet.querySelectorAll("[data-testid=videoComponent]")
     const tweetImg = tweet.querySelectorAll("[data-testid=tweetPhoto]")
+
+    console.log(gifsAndVids, tweetImg, " these are the both of them")
     if ((gifsAndVids.length === 0) && (tweetImg.length === 0)) {
       tweet.remove();
     } else {
@@ -54,10 +58,10 @@ function removeAllPostText(){
 // watch for changes to the tweet's parent elements
 function runTweetObserver() {
 
-const targetNode = document.body.querySelector("section").childNodes[1].childNodes[0]
+const targetNode = document.querySelector('[id^="accessible-list-"]').parentNode.childNodes[1].childNodes[0]
 
 // which mutations to observe
-const config = {attributes: false, childList: true};
+const config = {childList: true};
 
 // Callback function to execute when mutations are observed
 const callback = function (mutationsList, observer) {
@@ -65,10 +69,11 @@ const callback = function (mutationsList, observer) {
     if (mutation.type === "childList") {
       // console.log("A child node has been added or removed.");
       removeAllPostText();
-    } else if (mutation.type === "attributes") {
-      // console.log(`The ${mutation.attributeName} attribute was modified.`);
-      removeAllPostText();
     }
+    // } else if (mutation.type === "attributes") {
+    //   // console.log(`The ${mutation.attributeName} attribute was modified.`);
+    //   removeAllPostText();
+    // }
   }
 };
 // Create an observer instance linked to the callback function
