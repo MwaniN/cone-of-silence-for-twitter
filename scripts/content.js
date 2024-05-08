@@ -1,12 +1,14 @@
 // Only show tweets or comments, with images or video and removes text from the remaining tweets.
 
 
+// ---- HELPER FUNCTIONS -----
+
 // remove texts from tweets
 function removePostText(element) {
 
-let textParent = element.querySelectorAll(".css-1rynq56.r-8akbws.r-krxsd3.r-dnmrzs.r-1udh08x.r-bcqeeo.r-qvutc0.r-37j5jr.r-a023e6.r-rjixqe.r-16dba41.r-bnwqim");
-let quotedTweetText = element.querySelectorAll(".css-1rynq56.r-8akbws.r-krxsd3.r-dnmrzs.r-1udh08x.r-bcqeeo.r-qvutc0.r-37j5jr.r-a023e6.r-rjixqe.r-16dba41.r-bnwqim.r-14gqq1x");
-let actualTweetPageMainText =element.querySelectorAll(".css-1rynq56.r-bcqeeo.r-qvutc0.r-37j5jr.r-1inkyih.r-16dba41.r-bnwqim.r-135wba7");
+let textParent = element.querySelector(".css-1rynq56.r-8akbws.r-krxsd3.r-dnmrzs.r-1udh08x.r-bcqeeo.r-qvutc0.r-37j5jr.r-a023e6.r-rjixqe.r-16dba41.r-bnwqim");
+let quotedTweetText = element.querySelector(".css-1rynq56.r-8akbws.r-krxsd3.r-dnmrzs.r-1udh08x.r-bcqeeo.r-qvutc0.r-37j5jr.r-a023e6.r-rjixqe.r-16dba41.r-bnwqim.r-14gqq1x");
+let actualTweetPageMainText =element.querySelector(".css-1rynq56.r-bcqeeo.r-qvutc0.r-37j5jr.r-1inkyih.r-16dba41.r-bnwqim.r-135wba7");
 
 if (textParent.length > 0) {
   textParent[0].remove();
@@ -29,7 +31,7 @@ function removeAllPostText(){
 
 // retrieve all of the individual tweets and store it in a variable called tweets
 
-  let tweets = document.body.querySelector("section").childNodes[1].childNodes[0].children;
+  let tweets = document.querySelector('[id^="accessible-list-"]').parentNode.childNodes[1].childNodes[0].children;
 
   for (let tweet of tweets) {
     // ----refactor this to drill down into each tweet directly rather than user querySelectorAll
@@ -43,19 +45,19 @@ function removeAllPostText(){
   }
 }
 
-// document.addEventListener("DOMContentLoaded", (event) => {
-//   console.log("DOM fully loaded and parsed");
-//   removeAllPostText();
-// });
+
+// ------ OBSERVERS --------
 
 
-// create a mutation observer to watch for changes to the tweet's parent elements
+// INNER OBSERVER
+
+// watch for changes to the tweet's parent elements
 function runTweetObserver() {
 
 const targetNode = document.body.querySelector("section").childNodes[1].childNodes[0]
 
 // which mutations to observe
-const config = {attributes: true, childList: true, subtree:false};
+const config = {attributes: false, childList: true};
 
 // Callback function to execute when mutations are observed
 const callback = function (mutationsList, observer) {
@@ -77,25 +79,27 @@ tweetObserver.observe(targetNode, config);
 }
 
 
+// OUTER OBSERVER
 
 // check that the required section has been loaded to the DOM before running the tweetObserver
-window.addEventListener('load', function () {
-  console.log("Window is loaded!")
+// window.addEventListener('load', function () {
+//   console.log("Window is loaded!")
 
-const elementToObserve = document.querySelector("#react-root");
-const lookingFor = 'section';
+const elementToObserve = document.getElementById("react-root");
 const outerObserver = new MutationObserver(() => {
-    if (document.querySelector(lookingFor)) {
-        console.log(`${lookingFor} is ready`);
-        removeAllPostText()
-        runTweetObserver();
-        // disconnect to stop the observer from observing once the element is found
-        outerObserver.disconnect();
-    }
+    if (document.querySelector('[id^="accessible-list-"]')) {
+      if (document.querySelector('[id^="accessible-list-"]').parentNode.childNodes[1].childNodes[0]) {
+        console.log("we removing")
+          removeAllPostText()
+          runTweetObserver();
+          // disconnect to stop the observer from observing once the element is found
+          outerObserver.disconnect();
+      }
+        }
 });
 
-outerObserver.observe(elementToObserve, {attributes: true, attributeFilter:['[data-testid=cellInnerDiv]'], subtree: true, childList: true});
-})
+outerObserver.observe(elementToObserve, {attributes: true, subtree: true, childList: true});
+// })
 
 
 
