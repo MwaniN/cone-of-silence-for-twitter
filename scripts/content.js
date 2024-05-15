@@ -86,16 +86,21 @@ const tweetObserver = new MutationObserver(callback);
 tweetObserver.observe(targetNode, config);
 }
 
-
 // OUTER OBSERVER
 
 // check that the required section has been loaded to the DOM before running the tweetObserver
 
 const elementToObserve = document.getElementById("react-root");
 const outerObserver = new MutationObserver(() => {
-    if (document.body.querySelector("[data-testid=primaryColumn]")) {
-      if (document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0].children.length > 0) {
+(async function observerFunction() {
+    if (document.body.querySelectorAll("[data-testid=primaryColumn]").length > 0) {
+      const primaryColumn = document.body.querySelectorAll("[data-testid=primaryColumn]")[0]
+      console.log(primaryColumn, " the top thing now in a variable")
+      let targetHasKids = await document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0].children
+      console.log(targetHasKids, "the target kids")
+      if (targetHasKids.length > 0) {
         console.log("we removing")
+        console.log(targetHasKids, "the target kids in the IF statement")
         console.log(document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0], " this is what we're looking for to be loaded")
         let theTweets = document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0].children
         let theTarget = document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
@@ -105,6 +110,8 @@ const outerObserver = new MutationObserver(() => {
           outerObserver.disconnect();
       }
         }
+  })()
+
 });
 
 outerObserver.observe(elementToObserve, {attributes: false, subtree: true, childList: true});
