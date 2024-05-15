@@ -96,7 +96,7 @@ const outerObserver = new MutationObserver(() => {
     if (document.body.querySelectorAll("[data-testid=primaryColumn]").length > 0) {
       const primaryColumn = document.body.querySelectorAll("[data-testid=primaryColumn]")[0]
       console.log(primaryColumn, " the top thing now in a variable")
-      let targetHasKids = await document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0].children
+      let targetHasKids = await primaryColumn.childNodes[0].childNodes[2].childNodes[0].childNodes[0].childNodes[1].childNodes[0].children
       console.log(targetHasKids, "the target kids")
       if (targetHasKids.length > 0) {
         console.log("we removing")
