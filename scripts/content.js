@@ -1,4 +1,5 @@
 // Only show tweets or comments, with images or video and removes text from the remaining tweets.
+import {$,jQuery} from './jquery-3.7.1.min.js'
 
 
 // ---- HELPER FUNCTIONS -----
@@ -90,31 +91,35 @@ tweetObserver.observe(targetNode, config);
 
 // check that the required section has been loaded to the DOM before running the tweetObserver
 
-const elementToObserve = document.getElementById("react-root");
-const outerObserver = new MutationObserver(() => {
-(async function observerFunction() {
-    if (document.body.querySelectorAll("[data-testid=primaryColumn]").length > 0) {
-      const primaryColumn = document.body.querySelectorAll("[data-testid=primaryColumn]")[0]
-      console.log(primaryColumn, " the top thing now in a variable")
-      let targetHasKids = await primaryColumn.childNodes[0].childNodes[2].childNodes[0].childNodes[0].childNodes[1].childNodes[0].children
-      console.log(targetHasKids, "the target kids")
-      if (targetHasKids.length > 0) {
-        console.log("we removing")
-        console.log(targetHasKids, "the target kids in the IF statement")
-        console.log(document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0], " this is what we're looking for to be loaded")
-        let theTweets = document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0].children
-        let theTarget = document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
-          removeAllPostText(theTweets)
-          runTweetObserver(theTarget);
-          // disconnect to stop the observer from observing once the element is found
-          outerObserver.disconnect();
-      }
-        }
-  })()
+// const elementToObserve = document.getElementById("react-root");
+// const outerObserver = new MutationObserver(() => {
+// (async function observerFunction() {
+//     if (document.body.querySelectorAll("[data-testid=primaryColumn]").length > 0) {
+//       const primaryColumn = document.body.querySelectorAll("[data-testid=primaryColumn]")[0]
+//       console.log(primaryColumn, " the top thing now in a variable")
+//       let targetHasKids = await primaryColumn.childNodes[0].childNodes[2].childNodes[0].childNodes[0].childNodes[1].childNodes[0].children
+//       console.log(targetHasKids, "the target kids")
+//       if (targetHasKids.length > 0) {
+//         console.log("we removing")
+//         console.log(targetHasKids, "the target kids in the IF statement")
+//         console.log(document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0], " this is what we're looking for to be loaded")
+//         let theTweets = document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0].children
+//         let theTarget = document.body.querySelector("[data-testid=primaryColumn]").childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+//           removeAllPostText(theTweets)
+//           runTweetObserver(theTarget);
+//           // disconnect to stop the observer from observing once the element is found
+//           outerObserver.disconnect();
+//       }
+//         }
+//   })()
 
-});
+// });
 
-outerObserver.observe(elementToObserve, {attributes: false, subtree: true, childList: true});
+// outerObserver.observe(elementToObserve, {subtree: true, childList: true});
+
+if($('body').has('main').length !== 0){
+  console.log('Main is loaded, and jQuery works')
+}
 
 
 
