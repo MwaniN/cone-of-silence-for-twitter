@@ -5,7 +5,7 @@
   "description": "Remove text from your Twitter browsing experience.",
   "content_scripts": [
     {
-      "js": ["scripts/content.js"],
+      "js": ["scripts/content.js", "scripts/jquery-3.7.1.min.js"],
       "matches": [
         "https://twitter.com/*",
         "https://x.com/*"
