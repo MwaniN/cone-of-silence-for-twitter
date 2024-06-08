@@ -12,18 +12,13 @@ let primaryColumnSet = false;
 const outerMutationObserver = new MutationObserver(() => {
 (function observerFunction() {
 
-  if(primaryColumnSet === false) {
-    if (document.body.querySelector("[data-testid=primaryColumn]").children){
       if (document.body.querySelector("[data-testid=primaryColumn]").children.length > 0) {
 
         const primaryColumn = document.body.querySelector("[data-testid=primaryColumn]")
         console.log(primaryColumn, " primaryColumn now in a variable")
         primaryColumnSet = true;
 
-      }
-    }
 
-  } else if (primaryColumnSet === true) {
       try {
         // try getelementsbytagname instead of querySelector
         let tweetDiv = primaryColumn.querySelector("section").childNodes[1].childNodes[0]
@@ -42,7 +37,10 @@ const outerMutationObserver = new MutationObserver(() => {
       } catch (error) {
 
       }
-        }
+
+      }
+
+
   })()
 
 });
