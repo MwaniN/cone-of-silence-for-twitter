@@ -6,39 +6,34 @@
 // (possibly add a new class to each div that has been cleared already)
 // for those divs that have not been cleared - clear the text
 
-const elementToObserve = document.getElementById("react-root");
+// make observer for primary column, then make another observer on that and add a proper ID to it
+
+
+
 let primaryColumnSet = false;
+
+function pageLoad () {
+
+const elementToObserve = document.getElementById("react-root");
+
+let primaryColumn = ""
 
 const outerMutationObserver = new MutationObserver(() => {
 (function observerFunction() {
 
-      if (document.body.querySelector("[data-testid=primaryColumn]").children.length > 0) {
+  try {
+    if (document.body.querySelector("[data-testid=primaryColumn]").children.length > 0) {
 
-        const primaryColumn = document.body.querySelector("[data-testid=primaryColumn]")
-        console.log(primaryColumn, " primaryColumn now in a variable")
-        primaryColumnSet = true;
+      primaryColumn = document.body.querySelector("[data-testid=primaryColumn]")
+      primaryColumn.id = "primary-column"
+      console.log(primaryColumn, " primaryColumn now in a variable")
+      primaryColumnSet = true;
+      console.log("Disconnecting the observer")
+      outerMutationObserver.disconnect();
+    }
+  } catch {
 
-
-      try {
-        // try getelementsbytagname instead of querySelector
-        let tweetDiv = primaryColumn.querySelector("section").childNodes[1].childNodes[0]
-
-        if (tweetDiv.children.length > 0) {
-
-          tweetDiv.id = "tweet-div";
-
-          console.log("there are tweets, disconnect the observer now")
-
-
-            // disconnect to stop the observer from observing once the element is found
-            outerMutationObserver.disconnect();
-        }
-
-      } catch (error) {
-
-      }
-
-      }
+  }
 
 
   })()
@@ -46,3 +41,28 @@ const outerMutationObserver = new MutationObserver(() => {
 });
 
 outerMutationObserver.observe(elementToObserve, {subtree: true, childList: true});
+}
+
+// pageLoad()
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.message === 'TabUpdated') {
+    console.log(document.location.href);
+    pageLoad()
+  }
+})
+
+
+
+//   let tweetDiv = primaryColumn.querySelector("section").childNodes[1].childNodes[0]
+
+// if (tweetDiv.children.length > 0) {
+
+//   tweetDiv.id = "tweet-div";
+
+//   console.log(tweetDiv, " this is tweetDiv")
+//   console.log("there are tweets, disconnect the observer now")
+
+
+//     // disconnect to stop the observer from observing once the element is found
+//     outerMutationObserver.disconnect();

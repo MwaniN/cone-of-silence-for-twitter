@@ -3,6 +3,12 @@
   "name": "cone of silence for Twitter",
   "version": "1.0",
   "description": "Remove text from your Twitter browsing experience.",
+  "permissions": [
+    "tabs"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "content_scripts": [
     {
       "js": ["scripts/content.js"],
