@@ -8,6 +8,9 @@
 
 // make observer for primary column, then make another observer on that and add a proper ID to it
 
+// when looping through each tweet, assign it an id with an increasing value. Only run the subsequent things if the tweet does not have an ID present / one that's
+// in the list of already used IDs
+
 function findInnerTweetDiv (timelineChild1) {
 
   const elementToObserve = timelineChild1;
