@@ -8,6 +8,36 @@
 
 // make observer for primary column, then make another observer on that and add a proper ID to it
 
+function findInnerTweetDiv (timelineChild1) {
+
+  const elementToObserve = timelineChild1;
+
+  const timelineMutationObserver = new MutationObserver(() => {
+  (function observerFunction() {
+
+    try {
+      if (timelineChild1.children.length > 0) {
+
+        let tweetDiv = timelineChild1.childNodes[0]
+        tweetDiv.id = "tweet-div"
+
+        console.log("This is the tweetDiv", tweetDiv)
+
+        console.log("Disconnecting the findInnerTweetDiv observer")
+        timelineMutationObserver.disconnect();
+      }
+    } catch {
+
+    }
+
+
+    })()
+
+  });
+
+  timelineMutationObserver.observe(elementToObserve, {subtree: false, childList: true});
+  }
+
 
 function findTweetDiv (primaryColumn) {
 
@@ -24,10 +54,7 @@ function findTweetDiv (primaryColumn) {
 
         console.log("This is timeline child 1", timelineChild1)
 
-        // primaryColumn = document.body.querySelector("[data-testid=primaryColumn]")
-        // primaryColumn.id = "primary-column"
-        // console.log(primaryColumn, " primaryColumn now in a variable")
-        // primaryColumnSet = true;
+        findInnerTweetDiv(timelineChild1);
         console.log("Disconnecting the findTweetDiv observer")
         innerMutationObserver.disconnect();
       }
