@@ -11,6 +11,39 @@
 // when looping through each tweet, assign it an id with an increasing value. Only run the subsequent things if the tweet does not have an ID present / one that's
 // in the list of already used IDs
 
+function monitorTweetDiv (tweetDiv) {
+
+  const elementToObserve = tweetDiv;
+
+  const timelineMutationObserver = new MutationObserver(() => {
+  (function observerFunction() {
+
+    try {
+      if (tweetDiv.children.length > 0) {
+
+        for (let i = 0; i < tweetDiv.childNodes.length; i++) {
+          if (tweetDiv.childNodes[i].id === "") {
+            tweetDiv.childNodes[i].id = "tweet-parent"
+            // console.log("For loop be running! and ID was not empty string!")
+          }
+        }
+        console.log(tweetDiv.children, "INSIDE THE THING!!!")
+
+        // console.log("Disconnecting the findInnerTweetDiv observer")
+        // timelineMutationObserver.disconnect();
+      }
+    } catch (err) {
+      console.log("Sumting Wong", err)
+    }
+
+
+    })()
+
+  });
+
+  timelineMutationObserver.observe(elementToObserve, {childList: true});
+  }
+
 function findInnerTweetDiv (timelineChild1) {
 
   const elementToObserve = timelineChild1;
@@ -25,6 +58,8 @@ function findInnerTweetDiv (timelineChild1) {
         tweetDiv.id = "tweet-div"
 
         console.log("This is the tweetDiv", tweetDiv)
+
+        monitorTweetDiv(tweetDiv);
 
         console.log("Disconnecting the findInnerTweetDiv observer")
         timelineMutationObserver.disconnect();
