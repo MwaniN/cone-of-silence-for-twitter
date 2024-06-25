@@ -6,6 +6,8 @@
 
 // try adding the logic to detect if it's on the home page somewhere in here, maybe that'll help
 
+// Note: occasionally there are tweet divs that have no tweets in them. A copy is down below
+
 function tweetChanger (tweet) {
 
   tweet.id = "tweet-parent"
@@ -155,16 +157,10 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 })
 
 
+// tweet div with no tweet looks like -
 
-//   let tweetDiv = primaryColumn.querySelector("section").childNodes[1].childNodes[0]
+{/* <div class="css-175oi2r" data-testid="cellInnerDiv" style="transform: translateY(12928px); position: absolute; width: 100%;" id="tweet-parent">
+    <div class="css-175oi2r r-1adg3ll r-1ny4l3l"></div>
+</div> */}
 
-// if (tweetDiv.children.length > 0) {
-
-//   tweetDiv.id = "tweet-div";
-
-//   console.log(tweetDiv, " this is tweetDiv")
-//   console.log("there are tweets, disconnect the observer now")
-
-
-//     // disconnect to stop the observer from observing once the element is found
-//     outerMutationObserver.disconnect();
+// should accomodate for this
