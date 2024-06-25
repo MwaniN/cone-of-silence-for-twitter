@@ -54,6 +54,10 @@ function findInnerTweetDiv (timelineChild1) {
 
         console.log("This is the tweetDiv", tweetDiv)
 
+        for (let i = 0; i < tweetDiv.childNodes.length; i++) {
+          tweetDiv.childNodes[i].id = "tweet-parent"
+        }
+
         monitorTweetDiv(tweetDiv);
 
         console.log("Disconnecting the findInnerTweetDiv observer")
