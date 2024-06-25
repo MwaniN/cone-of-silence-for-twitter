@@ -11,6 +11,12 @@
 // when looping through each tweet, assign it an id with an increasing value. Only run the subsequent things if the tweet does not have an ID present / one that's
 // in the list of already used IDs
 
+function tweetChanger (tweet) {
+
+  tweet.id = "tweet-parent"
+
+}
+
 function monitorTweetDiv (tweetDiv) {
 
   const elementToObserve = tweetDiv;
@@ -22,7 +28,7 @@ function monitorTweetDiv (tweetDiv) {
 
       for (let i = 0; i < mutationRecords.length; i++) {
         for (let node of mutationRecords[i].addedNodes) {
-          node.id = "tweet-parent"
+          tweetChanger(node);
         }
       }
 
@@ -55,7 +61,7 @@ function findInnerTweetDiv (timelineChild1) {
         console.log("This is the tweetDiv", tweetDiv)
 
         for (let i = 0; i < tweetDiv.childNodes.length; i++) {
-          tweetDiv.childNodes[i].id = "tweet-parent"
+          tweetChanger(tweetDiv.childNodes[i])
         }
 
         monitorTweetDiv(tweetDiv);
