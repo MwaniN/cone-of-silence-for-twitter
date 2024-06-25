@@ -4,6 +4,8 @@
 /// for some reason after clicking an individual tweet and going back to the home page it stops working
 // need to fix this
 
+// try adding the logic to detect if it's on the home page somewhere in here, maybe that'll help
+
 function tweetChanger (tweet) {
 
   tweet.id = "tweet-parent"
