@@ -15,23 +15,18 @@ function monitorTweetDiv (tweetDiv) {
 
   const elementToObserve = tweetDiv;
 
-  const timelineMutationObserver = new MutationObserver(() => {
+  const timelineMutationObserver = new MutationObserver((mutationRecords) => {
   (function observerFunction() {
 
     try {
-      if (tweetDiv.children.length > 0) {
 
-        for (let i = 0; i < tweetDiv.childNodes.length; i++) {
-          if (tweetDiv.childNodes[i].id === "") {
-            tweetDiv.childNodes[i].id = "tweet-parent"
-            // console.log("For loop be running! and ID was not empty string!")
-          }
+      for (let i = 0; i < mutationRecords.length; i++) {
+        for (let node of mutationRecords[i].addedNodes) {
+          node.id = "tweet-parent"
         }
-        console.log(tweetDiv.children, "INSIDE THE THING!!!")
-
-        // console.log("Disconnecting the findInnerTweetDiv observer")
-        // timelineMutationObserver.disconnect();
       }
+
+      console.log(tweetDiv, "these are the tweets")
     } catch (err) {
       console.log("Sumting Wong", err)
     }
