@@ -1,15 +1,8 @@
 // Start from scratch to have a clean slate
 
-// check if the timeline element is loaded
-// add an id to identify that element in the DOM
-// use a mutant observer to check any new child divs
-// (possibly add a new class to each div that has been cleared already)
-// for those divs that have not been cleared - clear the text
 
-// make observer for primary column, then make another observer on that and add a proper ID to it
-
-// when looping through each tweet, assign it an id with an increasing value. Only run the subsequent things if the tweet does not have an ID present / one that's
-// in the list of already used IDs
+/// for some reason after clicking an individual tweet and going back to the home page it stops working
+// need to fix this
 
 function tweetChanger (tweet) {
 
@@ -70,7 +63,6 @@ function findInnerTweetDiv (timelineChild1) {
         timelineMutationObserver.disconnect();
       }
     } catch {
-
     }
 
 
