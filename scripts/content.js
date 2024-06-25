@@ -23,7 +23,9 @@ function monitorTweetDiv (tweetDiv) {
 
       for (let i = 0; i < mutationRecords.length; i++) {
         for (let node of mutationRecords[i].addedNodes) {
-          tweetChanger(node);
+          if (node.id === "") {
+            tweetChanger(node);
+          }
         }
       }
 
