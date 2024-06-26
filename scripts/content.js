@@ -46,6 +46,9 @@ function monitorTweetDiv (tweetDiv) {
 
 function findInnerTweetDiv (timelineChild1) {
 
+  console.log("findInnerTweetDiv started!!!!")
+  console.log("timelineChild1.children === ", timelineChild1.children)
+
   const elementToObserve = timelineChild1;
 
   const timelineMutationObserver = new MutationObserver(() => {
@@ -53,6 +56,7 @@ function findInnerTweetDiv (timelineChild1) {
 
     try {
       if (timelineChild1.children.length > 0) {
+        console.log("Something happened bruh?????")
 
         let tweetDiv = timelineChild1.childNodes[0]
         tweetDiv.id = "tweet-div"
@@ -68,7 +72,9 @@ function findInnerTweetDiv (timelineChild1) {
         console.log("Disconnecting the findInnerTweetDiv observer")
         timelineMutationObserver.disconnect();
       }
-    } catch {
+    } catch (err){
+
+      console.error(err);
     }
 
 
