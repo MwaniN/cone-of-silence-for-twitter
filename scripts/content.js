@@ -8,6 +8,9 @@
 
 // Note: occasionally there are tweet divs that have no tweets in them. A copy is down below
 
+// try using a proxy object and passing in the current URL and when it changes from the one the monitorTweetDiv was fired on, end the observer then
+// might help with the unexpected behavior when switching pages
+
 function tweetChanger (tweet) {
 
   tweet.id = "tweet-parent"
@@ -48,6 +51,9 @@ function findInnerTweetDiv (timelineChild1) {
 
   console.log("findInnerTweetDiv started!!!!")
   console.log("timelineChild1.children === ", timelineChild1.children)
+  console.log("timelineChild1.children.length === ", timelineChild1.children.length)
+  console.log("timelineChild1.childNodes === ", timelineChild1.childNodes)
+  console.log("timelineChild1.childNodes.length === ", timelineChild1.childNodes.length)
 
   const elementToObserve = timelineChild1;
 
