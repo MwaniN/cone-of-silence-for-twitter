@@ -11,6 +11,9 @@
 // try using a proxy object and passing in the current URL and when it changes from the one the monitorTweetDiv was fired on, end the observer then
 // might help with the unexpected behavior when switching pages
 
+// for things I don't want to show, try adding an inline style to display "none" instead of removing it from the DOM.
+// explore benefits of each
+
 function tweetChanger (tweet) {
 
   if (tweet.children[0].childNodes[0] === undefined) {
