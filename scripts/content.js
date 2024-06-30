@@ -16,12 +16,17 @@ function tweetChanger (tweet) {
   if (tweet.children[0].childNodes[0] === undefined) {
     // mark the empty tweet divs
     tweet.id = "tweet-parent-NO-KIDS"
-  } else {
-    tweet.id = "tweet-parent"
+  } else if (tweet.children[0].childNodes[0].getElementsByTagName("article").length === 0) {
+    console.log(tweet.children[0].childNodes[0].getElementsByTagName("article"), " HERE'S THE ARTICLE THING")
+    if (tweet.children[0].childNodes[0].childNodes[0].getElementsByTagName("a").length === 1) {
+      tweet.id = "tweet-parent-SHOW-MORE-REPLIES"
+    }
     // there are divs in the timeline for "Show more replies" when the tweet below it is a reply to the tweet above it.
     // need to account for those and have different behavior when they're encountered
     // "Show more replies" contains an href while the regular tweet contains an "article" - "Show more replies" must be just a link then
     // tweets seem to have data-testid="tweet"
+  } else {
+    tweet.id = "tweet-parent"
   }
 
 }
