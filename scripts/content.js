@@ -20,6 +20,7 @@ function tweetChanger (tweet) {
     tweet.id = "tweet-parent"
     // there are divs in the timeline for "Show more replies" when the tweet below it is a reply to the tweet above it.
     // need to account for those and have different behavior when they're encountered
+    // "Show more replies" contains an href while the regular tweet contains an "article" - "Show more replies" must be just a link then
   }
 
 }
