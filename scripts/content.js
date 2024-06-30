@@ -13,7 +13,14 @@
 
 function tweetChanger (tweet) {
 
-  tweet.id = "tweet-parent"
+  if (tweet.children[0].childNodes[0] === undefined) {
+    // mark the empty tweet divs
+    tweet.id = "tweet-parent-NO-KIDS"
+  } else {
+    tweet.id = "tweet-parent"
+    // there are divs in the timeline for "Show more replies" when the tweet below it is a reply to the tweet above it.
+    // need to account for those and have different behavior when they're encountered
+  }
 
 }
 
