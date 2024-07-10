@@ -19,6 +19,7 @@ function tweetChanger (tweet) {
   if (tweet.children[0].childNodes[0] === undefined) {
     // mark the empty tweet divs
     tweet.id = "tweet-parent-NO-KIDS"
+    tweet.style.display = "none"
   } else if (tweet.children[0].childNodes[0].getElementsByTagName("article").length === 0) {
     console.log(tweet.children[0].childNodes[0].getElementsByTagName("article"), " HERE'S THE ARTICLE THING")
     if (tweet.children[0].childNodes[0].childNodes[0].getElementsByTagName("a").length === 1) {
