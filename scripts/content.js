@@ -31,6 +31,7 @@ function tweetChanger (tweet) {
     // tweets seem to have data-testid="tweet"
   } else {
     tweet.id = "tweet-parent"
+    //hide the tweet-text div from every tweet on the home page, whether we end up displayign the tweet or not
   }
 
 }
