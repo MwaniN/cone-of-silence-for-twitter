@@ -32,6 +32,9 @@ function tweetChanger (tweet) {
   } else {
     tweet.id = "tweet-parent"
     //hide the tweet-text div from every tweet on the home page, whether we end up displayign the tweet or not
+    let tweetArticle = tweet.childNodes[0].childNodes[0].childNodes[0]
+    tweetArticle.id = "REAL-TWEET"
+    tweetArticle.childNodes[0].childNodes[0].childNodes[1].childNodes[1].childNodes[1].style.display = "none";
   }
 
 }
