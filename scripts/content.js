@@ -14,6 +14,9 @@
 // for things I don't want to show, try adding an inline style to display "none" instead of removing it from the DOM.
 // explore benefits of each
 
+// check if the direct tweet has no image or video, and also if there's a qupted tweet that it also has no image or video
+// if so then remove that whole tweet from the thing
+
 function tweetChanger (tweet) {
 
   if (tweet.children[0].childNodes[0] === undefined) {
