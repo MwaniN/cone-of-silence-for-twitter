@@ -40,8 +40,26 @@ function tweetChanger (tweet) {
     tweetArticle.childNodes[0].childNodes[0].childNodes[1].childNodes[1].childNodes[1].style.display = "none";
     tweetArticle.childNodes[0].childNodes[0].childNodes[1].childNodes[1].childNodes[1].id = "Tweet-Text-Parent"
     if (tweetArticle.childNodes[0].childNodes[0].childNodes[1].childNodes[1].childNodes.length > 3) {
+      // swap this with the one below
       let imgOrRepost = tweetArticle.childNodes[0].childNodes[0].childNodes[1].childNodes[1].childNodes[2]
-      imgOrRepost.id = "Image-Or-Repost-Parent"
+      imgOrRepost.id = "Image-Or-Quote-Tweet-Parent"
+      if (imgOrRepost.childNodes[0].childNodes.length > 1) {
+        // check if there's a quoted tweet at index 1, otherwise index 0 is an image
+        // then handle the quoted tweet
+        let quotedTweet = imgOrRepost.childNodes[0].childNodes[1].childNodes[0]
+        quotedTweet.id = "Quoted-Tweet-Parent"
+        let quotedTweetText = quotedTweet.childNodes[1].childNodes[0]
+        quotedTweetText.id = "Quoted-Tweet-Text"
+        quotedTweetText.style.display = "none";
+
+        if (quotedTweet.childNodes.length < 3) {
+          // if the quoted tweet doesn't have any images, remove it completely from the timeline
+          // next need to add removing the tweet altogether if neither the top level or quoted tweet have images
+          quotedTweet.id = "Quoted-Tweet-Parent-NO-IMAGES"
+          quotedTweet.parentElement.style.display = "none"
+        }
+      }
+
     } else if (tweetArticle.childNodes[0].childNodes[0].childNodes[1].childNodes[1].childNodes.length === 3) {
       tweet.id = "tweet-parent-NO-IMAGES";
       tweet.style.display = "none";
