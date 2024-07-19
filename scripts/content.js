@@ -55,6 +55,7 @@ function tweetChanger (tweet) {
         if (quotedTweet.childNodes.length < 3) {
           // if the quoted tweet doesn't have any images, remove it completely from the timeline
           // next need to add removing the tweet altogether if neither the top level or quoted tweet have images
+          // need to test performance again before moving further
           quotedTweet.id = "Quoted-Tweet-Parent-NO-IMAGES"
           quotedTweet.parentElement.style.display = "none"
         }
