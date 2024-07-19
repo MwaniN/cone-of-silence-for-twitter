@@ -38,6 +38,14 @@ function tweetChanger (tweet) {
     let tweetArticle = tweet.childNodes[0].childNodes[0].childNodes[0]
     tweetArticle.id = "REAL-TWEET"
     tweetArticle.childNodes[0].childNodes[0].childNodes[1].childNodes[1].childNodes[1].style.display = "none";
+    tweetArticle.childNodes[0].childNodes[0].childNodes[1].childNodes[1].childNodes[1].id = "Tweet-Text-Parent"
+    if (tweetArticle.childNodes[0].childNodes[0].childNodes[1].childNodes[1].childNodes.length > 3) {
+      let imgOrRepost = tweetArticle.childNodes[0].childNodes[0].childNodes[1].childNodes[1].childNodes[2]
+      imgOrRepost.id = "Image-Or-Repost-Parent"
+    } else if (tweetArticle.childNodes[0].childNodes[0].childNodes[1].childNodes[1].childNodes.length === 3) {
+      tweet.id = "tweet-parent-NO-IMAGES";
+      tweet.style.display = "none";
+    }
   }
 
 }
