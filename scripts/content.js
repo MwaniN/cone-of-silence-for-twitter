@@ -43,8 +43,9 @@ function tweetChanger (tweet) {
       // swap this with the one below
       let imgOrRepost = tweetArticle.childNodes[0].childNodes[0].childNodes[1].childNodes[1].childNodes[2]
       imgOrRepost.id = "Image-Or-Quote-Tweet-Parent"
+
       if (imgOrRepost.childNodes[0].childNodes.length > 1) {
-        // check if there's a quoted tweet at index 1, otherwise index 0 is an image
+        // above checks if there's a quoted tweet at index 1, otherwise index 0 is an image
         // then handle the quoted tweet
         let quotedTweet = imgOrRepost.childNodes[0].childNodes[1].childNodes[0]
         quotedTweet.id = "Quoted-Tweet-Parent"
@@ -61,7 +62,15 @@ function tweetChanger (tweet) {
         }
       }
 
+      if (imgOrRepost.childNodes.length > 1) {
+        const otherKindRepost = imgOrRepost.childNodes[1]
+        console.log(otherKindRepost, "This is the new quoted tweet type!!!")
+        otherKindRepost.id = "Other-Repost-Type"
+        console.log(otherKindRepost, "This is the new quoted tweet type after adding the ID!!!")
+      }
+
     } else if (tweetArticle.childNodes[0].childNodes[0].childNodes[1].childNodes[1].childNodes.length === 3) {
+      // this accurately covers when there is only text in the tweet and removes it
       tweet.id = "tweet-parent-NO-IMAGES";
       tweet.style.display = "none";
     }
